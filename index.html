@@ -35,8 +35,8 @@ const actions=el('div',null,'actions');actions.append(button('Edit',()=>edit($('
 if(!visible.length)root.append(el('p','No matching applications.'));frequency('skills',counts,appliedJobs.length);frequency('gaps',gaps,appliedJobs.length)}
 for(const id of ['filterStatus','filterWF','filterSalary','sortJobs'])$(id).addEventListener('input',renderJobs);
 
-const defaultJobChat="https://chatgpt.com/g/g-p-6b00c39abb5481918d0ea6ac90c0a0e6-ganj/c/6b05b47b-5114-83e8-ba66-914fbbf047e1";
-function jobChatKey(){return 'findersKeepers.jobChat.'+uid}
+const defaultJobChat="https://chatgpt.com/g/g-p-6b00c39abb5481918d0ea6ac90c0a0e6-ganj/c/6b05dc8f-6b10-83e8-9b05-c7cdd1f16393";
+function jobChatKey(){return 'findersKeepers.jobChat.v2.'+uid}
 function validChatLink(value){try{const u=new URL(value);return u.protocol==='https:'&&u.hostname==='chatgpt.com'&&/^\/(?:c\/|g\/)/.test(u.pathname)?u.href:null}catch{return null}}
 $('configureJobChat').onclick=()=>{if(!uid)return;const value=prompt('Paste the address of your dedicated ChatGPT conversation (from the browser address bar).',localStorage.getItem(jobChatKey())||defaultJobChat);if(value===null)return;const link=validChatLink(value.trim());if(!link){msg('Enter a valid ChatGPT conversation or project link.');return}localStorage.setItem(jobChatKey(),link);msg('Chat shortcut saved on this browser.')};
 $('openJobChat').onclick=()=>{if(!uid)return;const link=validChatLink(localStorage.getItem(jobChatKey())||'');if(!link){$('configureJobChat').click();return}window.open(link,'_blank','noopener,noreferrer')};
